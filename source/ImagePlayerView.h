@@ -20,14 +20,17 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
 @protocol ImagePlayerViewDelegate;
 
 @interface ImagePlayerView : UIView
-@property (nonatomic, assign) id<ImagePlayerViewDelegate> imagePlayerViewDelegate;
-@property (nonatomic, strong) UIPageControl *pageControl;
-@property (nonatomic, assign) BOOL autoScroll;  // default is YES, set NO to turn off autoScroll
-@property (nonatomic, assign) NSUInteger scrollInterval;    // scroll interval, unit: second, default is 2 seconds
-@property (nonatomic, assign) ICPageControlPosition pageControlPosition;    // pageControl position, defautl is bottomright
-@property (nonatomic, assign) BOOL hidePageControl; // hide pageControl, default is NO
-@property (nonatomic, assign) UIEdgeInsets edgeInsets;
-@property (nonatomic, assign) BOOL endlessScroll; // endless scroll, default is NO
+@property(nonatomic, assign) id <ImagePlayerViewDelegate> imagePlayerViewDelegate;
+@property(nonatomic, strong) UIPageControl *pageControl;
+@property(nonatomic, strong) UIScrollView *scrollView;
+@property(nonatomic, strong) UIImageView *mask;
+@property(nonatomic, assign) BOOL autoScroll;  // default is YES, set NO to turn off autoScroll
+@property(nonatomic, assign) NSUInteger scrollInterval;    // scroll interval, unit: second, default is 2 seconds
+@property(nonatomic, assign) ICPageControlPosition pageControlPosition;    // pageControl position, defautl is bottomright
+@property(nonatomic, assign) BOOL hidePageControl; // hide pageControl, default is NO
+@property(nonatomic, assign) UIEdgeInsets edgeInsets;
+@property(nonatomic, assign) BOOL endlessScroll;
+
 
 /**
  *  Reload everything
@@ -40,6 +43,7 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
 - (void)stopTimer;
 
 #pragma mark - deprecated methods
+
 /**
  *  Init image player
  *
@@ -48,7 +52,7 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
  *  @param delegate    delegate
  *  @deprecated use - (void)initWithCount:(NSInteger)count delegate:(id<ImagePlayerViewDelegate>)delegate instead
  */
-- (void)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder delegate:(id<ImagePlayerViewDelegate>)delegate DEPRECATED_ATTRIBUTE;
+- (void)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder delegate:(id <ImagePlayerViewDelegate>)delegate DEPRECATED_ATTRIBUTE;
 
 /**
  *  Init image player
@@ -59,7 +63,7 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
  *  @param edgeInsets  scroll view edgeInsets
  *  @deprecated use - (void)initWithCount:(NSInteger)count delegate:(id<ImagePlayerViewDelegate>)delegate edgeInsets:(UIEdgeInsets)edgeInsets instead
  */
-- (void)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder delegate:(id<ImagePlayerViewDelegate>)delegate edgeInsets:(UIEdgeInsets)edgeInsets DEPRECATED_ATTRIBUTE;
+- (void)initWithImageURLs:(NSArray *)imageURLs placeholder:(UIImage *)placeholder delegate:(id <ImagePlayerViewDelegate>)delegate edgeInsets:(UIEdgeInsets)edgeInsets DEPRECATED_ATTRIBUTE;
 
 /**
  *  Init image player
@@ -68,7 +72,7 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
  *  @param delegate
  *  @deprecated implement ImagePlayerViewDelegate
  */
-- (void)initWithCount:(NSInteger)count delegate:(id<ImagePlayerViewDelegate>)delegate DEPRECATED_ATTRIBUTE;
+- (void)initWithCount:(NSInteger)count delegate:(id <ImagePlayerViewDelegate>)delegate DEPRECATED_ATTRIBUTE;
 
 /**
  *  Init image player
@@ -78,11 +82,12 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
  *  @param edgeInsets scroll view edgeInsets
  *  @deprecated implement ImagePlayerViewDelegate
  */
-- (void)initWithCount:(NSInteger)count delegate:(id<ImagePlayerViewDelegate>)delegate edgeInsets:(UIEdgeInsets)edgeInsets DEPRECATED_ATTRIBUTE;
+- (void)initWithCount:(NSInteger)count delegate:(id <ImagePlayerViewDelegate>)delegate edgeInsets:(UIEdgeInsets)edgeInsets DEPRECATED_ATTRIBUTE;
 
 @end
 
 #pragma mark - ImagePlayerViewDelegate
+
 @protocol ImagePlayerViewDelegate <NSObject>
 
 @required
@@ -120,6 +125,7 @@ typedef NS_ENUM(NSInteger, ICPageControlPosition) {
 - (void)imagePlayerView:(ImagePlayerView *)imagePlayerView didScorllIndex:(NSInteger)index;
 
 #pragma mark - deprecated protocol methods
+
 /**
  *  Tap ImageView action
  *
